@@ -1,0 +1,6 @@
+---
+- name: install kubectl
+  apt:
+    name: kubectl
+    state: latest
+    force: yes
