@@ -18,3 +18,9 @@
     user: ubuntu
     roles:
       - join_worker
+
+  - hosts: main
+    become: yes
+    user: ubuntu
+    roles:
+      - deploy-django

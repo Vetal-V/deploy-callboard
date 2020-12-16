@@ -1,8 +1,8 @@
 [main]
-52.186.137.115 ansible_user=ubuntu ansible_password=Password123
+40.117.141.170 ansible_user=ubuntu ansible_password=Password123
 
 [worker]
-52.186.141.17 ansible_user=ubuntu ansible_password=Password123 
+40.117.129.215 ansible_user=ubuntu ansible_password=Password123 
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3

@@ -8,6 +8,6 @@ password=`terraform output -json password | xargs`
 
 cd ../ansible/
 sed -i "s/MAIN_IP/$public_ip1/" hosts
-sed -i "s/WORKER1_IP/$public_ip2/" hosts
+sed -i "s/WORKER_IP/$public_ip2/" hosts
 sed -i "s/USERNAME/$username/" hosts
 sed -i "s/PASSWORD/$password/" hosts

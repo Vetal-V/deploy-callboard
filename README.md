@@ -83,7 +83,9 @@ MAIN_IP ansible_user=USERNAME ansible_password=PASSWORD
 
 [worker]
 WORKER1_IP ansible_user=USERNAME ansible_password=PASSWORD 
-WORKER2_IP ansible_user=USERNAME ansible_password=PASSWORD 
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
+
+
+docker build -t vetalvr/callboard-kube:django -f Dockerfile_django .
