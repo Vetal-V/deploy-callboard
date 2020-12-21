@@ -64,14 +64,19 @@
 5. Run script `./setup_ansible.sh` to configure Ansible hosts file:
    ```
    cd ../ansible/
-   chmod +x setup_ansible.sh kubernetes-key.pem
+   chmod +x setup_ansible.sh
    ./setup_ansible.sh
    ```
-6. Run ansible playbook:
+6. Configure Kubernetes cluster:
    ```
    ansible-playbook -i hosts -u ubuntu main.yml
    ```
-
+7. Deploy backend(Django) and Frontend:
+   ```
+   chmod +x deploy.sh
+   ./deploy.sh
+   ```
+8. 
 
 
 
@@ -82,10 +87,15 @@ ssh -i ./kubernetes-key.pem ubuntu@3.140.18.0
 MAIN_IP ansible_user=USERNAME ansible_password=PASSWORD
 
 [worker]
-WORKER1_IP ansible_user=USERNAME ansible_password=PASSWORD 
+WORKER_IP ansible_user=USERNAME ansible_password=PASSWORD 
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3
 
 
 docker build -t vetalvr/callboard-kube:django -f Dockerfile_django .
+docker build -t vetalvr/callboard-kube:vue-front_v1 -f Dockerfile_front .
+
+#!/bin/bash
+
+sshpass -p PASSWORD ssh ubuntu@MAIN_IP "kubectl apply -f /home/ubuntu/.kube/deploy/"

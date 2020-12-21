@@ -1,33 +1,21 @@
 ---
+- name: create deploy directory
+  become: yes
+  become_user: ubuntu
+  file:
+    path: /home/ubuntu/.kube/deploy
+    state: directory
+    mode: 0755
+
 - name: copy kubernetes files
   template:
     src: "{{ item }}"
-    dest: "/home/ubuntu/.kube/"
-    owner: root 
-    group: root 
+    dest: "/home/ubuntu/.kube/deploy/"
+    owner: ubuntu 
+    group: ubuntu 
     mode: 0777
   with_items:
     - "django-deployment.yml"
     - "django-service.yml"
-
-- name: set folder kubect
-  file:
-    path: /home/ubuntu/.kube
-    state: directory
-    mode: 0777
-
-- name: copy base conf to user folder
-  command: cp /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
-  become: true
-
-- name: change permission to config
-  command: chmod 777 /home/ubuntu/.kube/config
-  args:
-    warn: false
-
-- name: apply from yml files
-  command: "kubectl apply -f ."
-  become: true
-  args:
-    chdir: /home/ubuntu/.kube/
-    
+    - "frontend-deployment.yml"
+    - "frontend-service.yml"

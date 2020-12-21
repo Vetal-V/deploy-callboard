@@ -1,23 +1,23 @@
 ---
-  - hosts: all
-    become: yes
-    user: ubuntu
-    roles:
-      - install_all
+  # - hosts: all
+  #   become: yes
+  #   user: ubuntu
+  #   roles:
+  #     - install_all
 
-  - hosts: main
-    become: yes
-    user: ubuntu
-    roles:
-      - install_main
-      - setup_main
-      - join_main
+  # - hosts: main
+  #   become: yes
+  #   user: ubuntu
+  #   roles:
+  #     - install_main
+  #     - setup_main
+  #     - join_main
   
-  - hosts: worker
-    become: yes
-    user: ubuntu
-    roles:
-      - join_worker
+  # - hosts: worker
+  #   become: yes
+  #   user: ubuntu
+  #   roles:
+  #     - join_worker
 
   - hosts: main
     become: yes

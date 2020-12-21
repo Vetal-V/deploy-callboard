@@ -9,7 +9,7 @@ spec:
   selector:
     app: django
   ports:
-    - name: "8080"
-      port: 8080
+    - name: "8000"
+      port: 8000
       targetPort: 8000
       nodePort: 30000
