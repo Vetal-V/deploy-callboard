@@ -71,12 +71,19 @@
    ```
    ansible-playbook -i hosts -u ubuntu main.yml
    ```
-7. Deploy backend(Django) and Frontend:
+7. Set dependencies for Django admin user (this value for example) and name of Docker Hub repository:
+   ```
+   export ADMIN_USERNAME=admin
+   export ADMIN_PASSWORD=adminpass
+   export ADMIN_EMAIL=admin@test.com
+   export DOCKER_REPO=vetalvr/callboard-kube
+   ```
+8. Deploy Backend(Django) and Frontend(Vue.js):
    ```
    chmod +x deploy.sh
    ./deploy.sh
    ```
-8. 
+9.  
 
 
 

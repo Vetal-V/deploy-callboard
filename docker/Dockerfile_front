@@ -2,10 +2,13 @@ FROM node:15
 
 LABEL author="Vetal-V"
 
+ARG BACKEND_IP
 
-RUN git clone https://github.com/Vetal-V/Coursework-DS.git
-WORKDIR Coursework-DS/frontend/callboard-front/
+RUN git clone https://github.com/Vetal-V/Coursework-DS.git/
+WORKDIR Coursework-DS/frontend/callboard-front
+RUN sed -i "s/127.0.0.1:8000/$BACKEND_IP:30000/" ./src/store/index.ts
 RUN npm install
 
+
 EXPOSE 8080
-CMD [ "npm", "run", "serve" ]
+CMD ["npm", "run", "serve"]

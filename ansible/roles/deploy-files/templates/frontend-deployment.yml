@@ -15,7 +15,7 @@ spec:
         app: frontend
     spec:
       containers:
-        - image: vetalvr/callboard-kube:vue-front_v1
-          name: djafrontendngo
+        - image: vetalvr/callboard-kube:vue-frontend2
+          name: frontend
           ports:
             - containerPort: 8080

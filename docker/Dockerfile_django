@@ -5,8 +5,12 @@ LABEL author="Vetal-V"
 ENV PROJECT_ROOT /app
 WORKDIR $PROJECT_ROOT
 
+ARG ADMIN_USERNAME
+ARG ADMIN_EMAIL
+ARG ADMIN_PASSWORD
+
 RUN apk update && apk add gcc libc-dev make git libffi-dev openssl-dev python3-dev libxml2-dev libxslt-dev libjpeg-turbo build-base py-pip jpeg-dev
-RUN git clone https://github.com/Vetal-V/Coursework-DS.git
+RUN git clone https://github.com/Vetal-V/Coursework-DS.git/
 WORKDIR Coursework-DS
 
 RUN pip install --upgrade pip
@@ -14,12 +18,12 @@ RUN pip install -r requirements.txt
 
 RUN python manage.py makemigrations
 RUN python manage.py migrate
-RUN python manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'adminpass')"
+RUN python manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('$ADMIN_USERNAME', '$ADMIN_EMAIL', '$ADMIN_PASSWORD')"
 RUN python manage.py loaddata ./import_data/filters.json
 RUN python manage.py loaddata ./import_data/categories.json
 RUN python manage.py loaddata ./import_data/terms.json
 
 EXPOSE 8000
 
-#CMD python manage.py runserver 0.0.0.0:8000
-CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "mysite.wsgi"]
+CMD python manage.py runserver 0.0.0.0:8000
+#CMD ["gunicorn", "--bind", ":8000", "--workers", "3", "mysite.wsgi"]

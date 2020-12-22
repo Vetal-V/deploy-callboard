@@ -15,7 +15,7 @@ spec:
         app: django
     spec:
       containers:
-        - image: vetalvr/callboard-kube:django-v1
+        - image: vetalvr/callboard-kube:django-backend2
           name: django
           ports:
             - containerPort: 8000
