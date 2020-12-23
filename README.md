@@ -3,7 +3,7 @@
 ## Pre Requirements
 - Terraform
 - Ansible
-- Account Azure and installed Azure CLI (az)
+- Account Azure and Azure CLI (az)
 - Docker
 
 ## Configure Kuberneter cluster
@@ -71,19 +71,29 @@
    ```
    ansible-playbook -i hosts -u ubuntu main.yml
    ```
-7. Set dependencies for Django admin user (this value for example) and name of Docker Hub repository:
-   ```
-   export ADMIN_USERNAME=admin
-   export ADMIN_PASSWORD=adminpass
-   export ADMIN_EMAIL=admin@test.com
-   export DOCKER_REPO=vetalvr/callboard-kube
-   ```
-8. Deploy Backend(Django) and Frontend(Vue.js):
-   ```
-   chmod +x deploy.sh
-   ./deploy.sh
-   ```
-9.  
+7. Deploy callboard to k8s:
+   1. Run deploy with rebuild docker images:
+      - Set dependencies for Django admin user (this value for example) and name of Docker Hub repository:
+           ```
+           export ADMIN_USERNAME=admin
+           export ADMIN_PASSWORD=adminpass
+           export ADMIN_EMAIL=admin@test.com
+           export DOCKER_REPO=vetalvr/callboard-kube
+           ```
+      - Deploy Backend(Django) and Frontend(Vue.js):
+           ```
+           chmod +x rebuild_deploy.sh
+           ./rebuild_deploy.sh
+           ```
+   2. Run deploy without rebuild docker images:
+        ```
+        chmod +x no_rebuild_deploy.sh
+        ./no_rebuild_deploy.sh
+        ```
+8. To check the launch of backend you need to follow the link `GLOBAL_IP`:30000/admin (global ip of any machine, for example from file `hosts`):
+![image](img/1.png)
+9.  To check the launch of frontend you need to follow the link `GLOBAL_IP`:30100 (global ip of any machine, for example from file `hosts`)
+![image](img/2.png)
 
 
 

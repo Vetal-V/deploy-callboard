@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: django
+  name: frontend
   labels:
-    app: django
+    app: frontend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: django
+      app: frontend
   template:
     metadata:
       labels:
-        app: django
+        app: frontend
     spec:
       containers:
-        - image: vetalvr/callboard-kube:django-backend
-          name: django
+        - image: vetalvr/callboard-kube:vue-frontend
+          name: frontend
           ports:
-            - containerPort: 8000
+            - containerPort: 8080

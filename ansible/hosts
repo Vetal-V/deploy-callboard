@@ -1,8 +1,8 @@
 [main]
-MAIN_IP ansible_user=USERNAME ansible_password=PASSWORD
+13.92.82.95 ansible_user=ubuntu ansible_password=Password123
 
 [worker]
-WORKER_IP ansible_user=USERNAME ansible_password=PASSWORD 
+13.92.81.250 ansible_user=ubuntu ansible_password=Password123 
 
 [all:vars]
 ansible_python_interpreter=/usr/bin/python3

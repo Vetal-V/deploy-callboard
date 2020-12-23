@@ -16,6 +16,9 @@ WORKDIR Coursework-DS
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
+RUN echo $ADMIN_USERNAME
+RUN echo $ADMIN_PASSWORD
+
 RUN python manage.py makemigrations
 RUN python manage.py migrate
 RUN python manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('$ADMIN_USERNAME', '$ADMIN_EMAIL', '$ADMIN_PASSWORD')"
