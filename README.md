@@ -21,7 +21,7 @@
 2. Create file `./terraform/variables.tf` with the following content:
     ```
     variable "instance_count" {
-    default = "3"
+        default = "2"
     }
 
     variable "location" {
@@ -72,47 +72,19 @@
    ansible-playbook -i hosts -u ubuntu main.yml
    ```
 7. Deploy callboard to k8s:
-   1. Run deploy with rebuild docker images:
-      - Set dependencies for Django admin user (this value for example) and name of Docker Hub repository:
-           ```
-           export ADMIN_USERNAME=admin
-           export ADMIN_PASSWORD=adminpass
-           export ADMIN_EMAIL=admin@test.com
-           export DOCKER_REPO=vetalvr/callboard-kube
-           ```
-      - Deploy Backend(Django) and Frontend(Vue.js):
-           ```
-           chmod +x rebuild_deploy.sh
-           ./rebuild_deploy.sh
-           ```
-   2. Run deploy without rebuild docker images:
+   - Set dependencies for Django admin user (this value for example) and name of Docker Hub repository:
         ```
-        chmod +x no_rebuild_deploy.sh
-        ./no_rebuild_deploy.sh
+        export ADMIN_USERNAME=admin
+        export ADMIN_PASSWORD=adminpass
+        export ADMIN_EMAIL=admin@test.com
+        export DOCKER_REPO=vetalvr/callboard-kube
+        ```
+   - Deploy Backend(Django) and Frontend(Vue.js):
+        ```
+        chmod +x deploy.sh
+        ./deploy.sh
         ```
 8. To check the launch of backend you need to follow the link `GLOBAL_IP`:30000/admin (global ip of any machine, for example from file `hosts`):
 ![image](img/1.png)
 9.  To check the launch of frontend you need to follow the link `GLOBAL_IP`:30100 (global ip of any machine, for example from file `hosts`)
 ![image](img/2.png)
-
-
-
-ssh -i ./kubernetes-key.pem ubuntu@3.140.18.0
-
-
-[main]
-MAIN_IP ansible_user=USERNAME ansible_password=PASSWORD
-
-[worker]
-WORKER_IP ansible_user=USERNAME ansible_password=PASSWORD 
-
-[all:vars]
-ansible_python_interpreter=/usr/bin/python3
-
-
-docker build -t vetalvr/callboard-kube:django -f Dockerfile_django .
-docker build -t vetalvr/callboard-kube:vue-front_v1 -f Dockerfile_front .
-
-#!/bin/bash
-
-sshpass -p PASSWORD ssh ubuntu@MAIN_IP "kubectl apply -f /home/ubuntu/.kube/deploy/"

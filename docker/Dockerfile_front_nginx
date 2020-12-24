@@ -1,0 +1,26 @@
+# stage1 as builder
+FROM node:10-alpine as builder
+
+ARG BACKEND_IP
+
+RUN apk add --no-cache git
+RUN git clone https://github.com/Vetal-V/Coursework-DS.git
+WORKDIR Coursework-DS/frontend/callboard-front
+RUN sed -i "s/127.0.0.1:8000/$BACKEND_IP:30000/" ./src/store/index.ts
+RUN npm install
+
+# Build the project
+RUN npm run build
+
+
+FROM nginx:alpine as production-build
+COPY nginx.conf /etc/nginx/nginx.conf
+
+## Remove default nginx index page
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy from the stahg 1
+COPY --from=builder /Coursework-DS/frontend/callboard-front/dist /usr/share/nginx/html
+
+EXPOSE 8080
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
